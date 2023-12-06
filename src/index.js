@@ -27,7 +27,7 @@ const readFileTalker = async () => {
     const data = await fs.readFile(talkerPath);
     return JSON.parse(data);
   } catch (error) {
-    console.error(`Arquivo não pode ser lido: ${error}`);
+    console.error(`Arquivo não encontrado: ${error}`);
   }
 };
 
