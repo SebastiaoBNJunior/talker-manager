@@ -1,5 +1,11 @@
 const express = require('express');
 
+const fs = require('fs').promises;
+
+const path = require('path');
+
+const talkerPath = path.resolve(__dirname, './talker.json');
+
 const app = express();
 app.use(express.json());
 
@@ -14,4 +20,21 @@ app.get('/', (_request, response) => {
 app.listen(PORT, () => {
   console.log('Online');
 });
-// teste
+// não remova esse endpoint, e para o avaliador funcionar
+
+const readFileTalker = async () => {
+  try {
+    const data = await fs.readFile(talkerPath);
+    return JSON.parse(data);
+  } catch (error) {
+    console.error(`Arquivo não pode ser lido: ${error}`);
+  }
+};
+
+app.get('/talker', async (req, res) => {
+  const talker = await readFileTalker();
+  if (talker.length === 0) {
+    res.status(200).json([]);
+  }
+  res.status(200).json(talker);
+});
