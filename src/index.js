@@ -33,7 +33,7 @@ const readTalker = async () => {
     const data = await fs.readFile(talkerPath);
     return JSON.parse(data);
   } catch (error) {
-    console.error(`Erro ao ler o arquivo: ${error.message}`);
+    console.error(`Error ao ler o arquivo: ${error.message}`);
   }
 };
 
